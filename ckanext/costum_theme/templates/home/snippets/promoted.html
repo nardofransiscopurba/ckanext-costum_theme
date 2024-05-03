@@ -1,0 +1,58 @@
+{% set tags = h.get_facet_items_dict('tags', c.search_facets, limit=3) %}
+{% set placeholder = _('E.g. environment') %}
+{% set intro = g.site_intro_text %}
+
+<div class="main hero">
+    <div class="container">
+        <div class="row row1">
+            <div class="col-md-6 col1">
+                <div class="module-content box">
+                    <div>
+                        {% if intro %}
+                        {{ h.render_markdown(intro) }}
+                        {% else %}
+                        <h3 class="page-heading">{{ _("") }}</h3>
+                        <p>
+
+                        </p>
+                        {% endif %}
+                    </div>
+                    {% block home_image %}
+                    <section class="featured media-overlay hidden-xs">
+                        <h2 class="media-heading">{% block home_image_caption %}{{ _("Data Kabupaten Karo") }}{% endblock %}</h2>
+                        {% block home_image_content %}
+                        <a class="media-image" href="#">
+                            <img class="img-fluid" src="/katasada.webp" alt="Placeholder" width="420" height="220" />
+                        </a>
+                        {% endblock %}
+                    </section>
+                    {% endblock %}
+                </div>
+            </div>
+            <div class="col-md-6 col2">
+                <div class="module-search card box">
+                    <form class="module-content search-form" method="get" action="{% url_for 'dataset.search' %}">
+                        <h3 class="heading">{{ _("Search data") }}</h3>
+                        <div class="search-input form-group search-giant">
+                            <input aria-label="{% block header_site_search_label %}{{ _('Search datasets') }}{% endblock %}" id="field-main-search" type="text" class="form-control" name="q" value="" autocomplete="off" placeholder="{% block search_placeholder %}{{ placeholder }}{% endblock %}" />
+                            <button class="btn" type="submit" aria-labelledby="search-label">
+                                <i class="fa fa-search"></i>
+                                <span class="sr-only" id="search-label">{{ _('Search') }}</span>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="tags">
+                        <h3>{{ _('Tag populer') }}</h3>
+                        {% for tag in tags %}
+                        <a class="tag" href="{% url_for 'dataset.search', tags=tag.name %}" title="{{ tag.display_name }}">{{ tag.display_name|truncate(22) }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

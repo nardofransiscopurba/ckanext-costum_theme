@@ -1,0 +1,20 @@
+{% ckan_extends %}
+
+{% block maintag %}{% endblock %}
+
+
+{% block content %}
+
+<div class="homepage">
+    <div id="content" class="container">
+        {{ self.flash() }}
+    </div>
+    {% block primary_content %}
+    <div role="main">
+        {% block promoted %}
+        {% snippet 'home/snippets/promoted.html' %}
+        {% endblock %}
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}
